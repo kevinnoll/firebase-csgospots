@@ -49,7 +49,7 @@ exports.createSmoke = functions.https.onRequest((request, response) => {
 	if (!request.body.mapname || 
 		!request.body.title || 
 		!request.body.strategy || 
-		!request.body.youtubeId) {
+		!request.body.videoId) {
 			response.send("please provide more information.");
 			return;
 	}
@@ -77,6 +77,76 @@ exports.createSmoke = functions.https.onRequest((request, response) => {
       destination: thumbFilePath
     });*/
 });
+
+exports.processNewSpot = functions.database.ref('/temp/{pushId}')
+	.onWrite(event => {
+		const post = event.data.val();
+		var sKey = makeid();
+
+		readKey();
+
+		function readKey () {
+			console.log("checking if there is already a key named " + sKey);
+			return admin.database().ref(`spotids/${sKey}`).once('value').then(snap => {
+				if(snap.val() === null) {
+					console.log("found an unused key, it is: " + sKey)
+					insertKey();
+					return sKey;
+				} else {
+					console.log("key " + sKey + " already in use, getting a new one.")
+					sKey = makeid();
+					console.log("new key is: " + sKey);
+					readKey();
+				}
+			})
+		}
+
+		function insertKey() {
+			if (!post.videoId || !post.title || !post.endSeconds || !post.endSeconds) {
+				console.log("too less data to insert");
+				return;
+			} 
+
+			let o = {},
+				aPromises = [];
+			o[sKey] = true;
+ 			aPromises.push(admin.database().ref('spotids/').update(o));
+			
+			let spot = {};
+			spot[sKey] = {
+				videoId : post.videoId,
+				title : post.title,
+				endSeconds : post.endSeconds,
+				endSeconds : post.endSeconds,
+				published : false
+			}
+			aPromises.push(admin.database().ref('spots/' + post.mapname + '/' + post.strategy + '/')
+				.update(spot));
+
+			let location = {};
+			location[sKey] = {
+				start : post.start,
+				end : post.end,
+				published : false
+			}
+			aPromises.push(admin.database().ref('locations/' + post.mapname + '/' + post.strategy + '/')
+				.update(location));
+			
+			Promise.all(aPromises).then((a,b,c) => {
+				console.log("all 3 pushed successfully");
+			})
+		}
+
+		function makeid() {
+			var text = "";
+			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+			for( var i=0; i < 5; i++ ) {
+				text += possible.charAt(Math.floor(Math.random() * possible.length));
+			}	
+			return text;
+		}
+	})
 
 
 // // Create and Deploy Your First Cloud Functions
