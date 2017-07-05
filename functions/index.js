@@ -81,6 +81,7 @@ exports.createSmoke = functions.https.onRequest((request, response) => {
 exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 	.onWrite(event => {
 		const post = event.data.val();
+		const key = event.data.key;
 		var sKey = makeid();
 
 		readKey();
@@ -134,6 +135,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			
 			Promise.all(aPromises).then((a,b,c) => {
 				console.log("all 3 pushed successfully");
+				admin.database().ref(`temp/${key}`).remove();
 			})
 		}
 
