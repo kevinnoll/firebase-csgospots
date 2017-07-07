@@ -117,7 +117,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			spot[sKey] = {
 				videoId : post.videoId,
 				title : post.title,
-				endSeconds : post.endSeconds,
+				startSeconds : post.startSeconds,
 				endSeconds : post.endSeconds,
 				published : false
 			}
