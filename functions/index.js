@@ -119,6 +119,8 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 				title : post.title,
 				startSeconds : post.startSeconds,
 				endSeconds : post.endSeconds,
+				mapName : post.mapname,
+				strategy : post.strategy,
 				published : false
 			}
 			aPromises.push(admin.database().ref('spots/' + post.mapname + '/' + post.strategy + '/')
