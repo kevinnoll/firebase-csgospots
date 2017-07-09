@@ -142,9 +142,10 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			// like /de_dust2/smoke/xxxxx.json and filter for a published=false flag,
 			// but we would need to do this for every path which would also need
 			// further customizing if more maps get released.
-			let releaseCandidate = Object.assign(post,{spotId:sKey});
+			let releaseCandidate = {}
+			releaseCandidate[sKey] = Object.assign(post,{spotId:sKey});
 			aPromises.push(admin.database().ref('releaseCandidates/')
-				.update(releaseCandidate));
+				.pushZ(releaseCandidate));
 
 			// cleanup tmp folder
 			Promise.all(aPromises).then((a,b,c) => {
