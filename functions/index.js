@@ -149,7 +149,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 
 			// cleanup tmp folder
 			Promise.all(aPromises).then((a,b,c) => {
-				console.log("all 3 pushed successfully");
+				console.log("all 4 pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
 			})
 		}
