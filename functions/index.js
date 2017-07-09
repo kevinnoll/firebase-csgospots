@@ -113,6 +113,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			o[sKey] = true;
  			aPromises.push(admin.database().ref('spotids/').update(o));
 			
+			// persist to spot data
 			let spot = {};
 			spot[sKey] = {
 				videoId : post.videoId,
@@ -126,6 +127,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			aPromises.push(admin.database().ref('spots/' + post.mapname + '/' + post.strategy + '/')
 				.update(spot));
 
+			// persist to location data
 			let location = {};
 			location[sKey] = {
 				start : post.start,
@@ -134,11 +136,21 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			}
 			aPromises.push(admin.database().ref('locations/' + post.mapname + '/' + post.strategy + '/')
 				.update(location));
-			
-			/*Promise.all(aPromises).then((a,b,c) => {
+
+			// persist to release data
+			// we do this to save runtime. we could also run over every deep node
+			// like /de_dust2/smoke/xxxxx.json and filter for a published=false flag,
+			// but we would need to do this for every path which would also need
+			// further customizing if more maps get released.
+			let releaseCandidate = Object.assign(post,{spotId:sKey});
+			aPromises.push(admin.database().ref('releaseCandidates/')
+				.update(releaseCandidate));
+
+			// cleanup tmp folder
+			Promise.all(aPromises).then((a,b,c) => {
 				console.log("all 3 pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
-			})*/
+			})
 		}
 
 		function makeid() {
