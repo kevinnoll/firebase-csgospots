@@ -145,7 +145,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			let releaseCandidate = {}
 			releaseCandidate[sKey] = Object.assign(post,{spotId:sKey});
 			aPromises.push(admin.database().ref('releaseCandidates/')
-				.pushZ(releaseCandidate));
+				.update(releaseCandidate));
 
 			// cleanup tmp folder
 			Promise.all(aPromises).then((a,b,c) => {
