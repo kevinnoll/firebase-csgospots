@@ -135,10 +135,10 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			aPromises.push(admin.database().ref('locations/' + post.mapname + '/' + post.strategy + '/')
 				.update(location));
 			
-			Promise.all(aPromises).then((a,b,c) => {
+			/*Promise.all(aPromises).then((a,b,c) => {
 				console.log("all 3 pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
-			})
+			})*/
 		}
 
 		function makeid() {
