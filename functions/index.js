@@ -7,44 +7,6 @@ const statistics = {};
 
 admin.initializeApp(functions.config().firebase);
 
-exports.test = functions.https.onRequest((request, response) => {
-	console.log("TEST : " + gcs.bucket("/spots/de_dust2/smoke"))
-	//const blob = gcs.bucket("/spots/de_dust2/smoke").file("knecht.json").createWriteStream();
-  	//const blobStream = blob.createWriteStream()
-	/*fs.writeFile('/hi/myjsonfile.json', JSON.stringify({mapname:"test",title:"rippler"}), 'utf8', function (arg) {
-		console.log("it called me back; " + arg.toString())
-	});*/
-	var fs = require('fs');
-    fs.writeFile("thing.json", JSON.stringify({mapname:"test",title:"rippler"}));
-
-	let bucket = gcs.bucket("csgospots-1f294").upload('thing.json', function(err, file, apiResponse) {
-		console.log("err: " + err.toString());
-		console.log("file: " + file.toString());
-		console.log("api: " + apiResponse.toString());
-		response.send("finito");
-
-	// Your bucket now contains:
-	// - "image.png" (with the contents of `/local/path/image.png')
-
-	// `file` is an instance of a File object that refers to your new file.
-	});
-		/*console.log("bucket: " + bucket.toString());
-		bucket.file("blyat").save("alsdoalsdoasld").then(function(){
-			console.log("seems saved");
-		},function(err){
-			console.log(err.toString())
-		})*/
-
-	/*let myBucket = gcs.bucket().get().then(function (data){
-		console.log("then erreicht")
-		console.log("data: " + data.toString());
-		myBucket.file('my-file').save({mapname:"test",title:"rippler"});
-
-		response.send("finito");
-		return
-	});*/
-});
-
 exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 	.onWrite(event => {
 		const post = event.data.val();
