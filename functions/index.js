@@ -3,6 +3,7 @@ const gcs = require("@google-cloud/storage")();
 const admin = require('firebase-admin');
 const fs = require('fs');
 const cors = require('cors')({origin: true});
+const statistics = {};
 
 admin.initializeApp(functions.config().firebase);
 
@@ -42,40 +43,6 @@ exports.test = functions.https.onRequest((request, response) => {
 		response.send("finito");
 		return
 	});*/
-});
-
-
-exports.createSmoke = functions.https.onRequest((request, response) => {
-	if (!request.body.mapname || 
-		!request.body.title || 
-		!request.body.strategy || 
-		!request.body.videoId) {
-			response.send("please provide more information.");
-			return;
-	}
-	if ( typeof request.body.start.x !== "number" || typeof request.body.start.y !== "number" ||
-		typeof request.body.end.x !== "number" || typeof request.body.end.y !== "number") {
-			response.send("coordinates are not of type number");
-			return;
-	}
-	if (request.body.start.x < 0 || request.body.start.x > 1024 ||
-		request.body.start.y < 0 || request.body.start.y > 1024 ||
-		request.body.end.x < 0 || request.body.end.x > 1024 ||
-		request.body.end.y < 0 || request.body.end.y > 1024) {
-			response.send("coordinates are not in the correct range");
-			return;
-	}
-
-	let oSpot = request.body;
-
-	let sKey = "aEv8v",
-		sBucket = "/spots/" + oSpot.mapname + "/" + oSpot.strategy + "/",
-		oBucket = gcs.bucket(sBucket);
-
-
-	/*oBucket.upload(tempFilePath, {
-      destination: thumbFilePath
-    });*/
 });
 
 exports.processNewSpot = functions.database.ref('/temp/{pushId}')
@@ -147,6 +114,17 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			aPromises.push(admin.database().ref('releaseCandidates/')
 				.update(releaseCandidate));
 
+			// increase counter
+			aPromises.push(admin.database().ref('statistics/' + post.mapname + '/' + post.strategy + '/').once('value').then(function(snapshot) {
+				let count = 1;
+				if (snapshot.val() !== null && !!snapshot.val().count) {
+					count = snapshot.val().count++;
+				}
+				return admin.database().ref('statistics/' + post.mapname + '/' + post.strategy + '/').update({count:count}).then(snap => {
+					console.log("updated statistics")
+				})
+			}));
+
 			// cleanup tmp folder
 			Promise.all(aPromises).then((a,b,c) => {
 				console.log("all 4 pushed successfully");
@@ -164,58 +142,3 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			return text;
 		}
 	})
-
-
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-exports.getUniqueId = functions.https.onRequest((request, response) => {
-	cors(request, response, () => {
-
-		var sKey = makeid();
-
-		readKey();
-
-		if (!request.body.mapname || !request.body.title || !request.body.strategy) {
-			response.send("please provide more information.");
-			return;
-		}
-
-		function readKey () {
-			console.log("checking if there is already a key named " + sKey);
-			return admin.database().ref(`spots/${sKey}`).once('value').then(snap => {
-				if(snap.val() === null) {
-					console.log("found an unused key, it is: " + sKey)
-					insertKey();
-					response.status(200).send(JSON.stringify({spotId : sKey}));
-				} else {
-					console.log("key " + sKey + " already in use, getting a new one.")
-					sKey = makeid();
-					console.log("new key is: " + sKey);
-					readKey();
-				}
-			})
-		}
-
-		function insertKey() {
-			var o = {}
-			o[sKey] = request.body;
-			o[sKey].votes = 0;
-			admin.database().ref('spots/').update(o).then(snap => {
-				console.log("set data complete")
-			})
-		}
-
-		function makeid() {
-			var text = "";
-			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-			for( var i=0; i < 5; i++ ) {
-				text += possible.charAt(Math.floor(Math.random() * possible.length));
-			}	
-			return text;
-		}
-
-  	});
-
-});
