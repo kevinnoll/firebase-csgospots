@@ -78,12 +78,16 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 
 			// increase counter
 			aPromises.push(admin.database().ref('statistics/' + post.mapname + '/').once('value').then(function(snapshot) {
-				let count = 1;
-				if (snapshot.val() !== null && !!snapshot.val().count) {
-					count = snapshot.val().count++;
+				let k = snapshot.val();
+				if (k && k[post.strategy]) {
+					k[post.strategy]++;
+				} else {
+					k[post.strategy] = 1
 				}
-				let k = {};
-				k[post.strategy] = count;
+
+				console.log("k is " + JSON.stringify(k));
+
+				console.log("writing a " + k[post.strategy] + " to " + post.mapname+"/"+post.strategy);
 				return admin.database().ref('statistics/' + post.mapname + '/').update(k).then(snap => {
 					console.log("updated statistics")
 				})
