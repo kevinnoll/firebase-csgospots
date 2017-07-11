@@ -77,12 +77,14 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 				.update(releaseCandidate));
 
 			// increase counter
-			aPromises.push(admin.database().ref('statistics/' + post.mapname + '/' + post.strategy + '/').once('value').then(function(snapshot) {
+			aPromises.push(admin.database().ref('statistics/' + post.mapname + '/').once('value').then(function(snapshot) {
 				let count = 1;
 				if (snapshot.val() !== null && !!snapshot.val().count) {
 					count = snapshot.val().count++;
 				}
-				return admin.database().ref('statistics/' + post.mapname + '/' + post.strategy + '/').update({count:count}).then(snap => {
+				let k = {};
+				k[post.strategy] = count;
+				return admin.database().ref('statistics/' + post.mapname + '/').update(k).then(snap => {
 					console.log("updated statistics")
 				})
 			}));
