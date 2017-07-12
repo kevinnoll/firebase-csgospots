@@ -8,7 +8,7 @@ const statistics = {};
 admin.initializeApp(functions.config().firebase);
 
 exports.processNewSpot = functions.database.ref('/temp/{pushId}')
-	.onWrite(event => {
+	.onCreate(event => {
 		const post = event.data.val();
 		const key = event.data.key;
 		var sKey = makeid();
@@ -78,8 +78,8 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 
 			// increase counter
 			aPromises.push(admin.database().ref('statistics/' + post.mapname + '/').once('value').then(function(snapshot) {
-				let k = snapshot.val();
-				if (k && k[post.strategy]) {
+				let k = snapshot.val() || {};
+				if (k[post.strategy]) {
 					k[post.strategy]++;
 				} else {
 					k[post.strategy] = 1
