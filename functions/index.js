@@ -37,9 +37,13 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 				return;
 			} 
 
+			// insert spotid data and use it inversed key
 			let o = {},
 				aPromises = [];
-			o[sKey] = true;
+			o[sKey] = {
+				mapName : post.mapname,
+				strategy : post.strategy
+			};
  			aPromises.push(admin.database().ref('spotids/').update(o));
 			
 			// persist to spot data
