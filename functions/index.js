@@ -65,7 +65,8 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			location[sKey] = {
 				start : post.start,
 				end : post.end,
-				published : false
+				published : false,
+				angle : 0
 			}
 			aPromises.push(admin.database().ref('locations/' + post.mapname + '/' + post.strategy + '/')
 				.update(location));
