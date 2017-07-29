@@ -81,23 +81,6 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			aPromises.push(admin.database().ref('releaseCandidates/')
 				.update(releaseCandidate));
 
-			// increase counter
-			aPromises.push(admin.database().ref('statistics/' + post.mapname + '/').once('value').then(function(snapshot) {
-				let k = snapshot.val() || {};
-				if (k[post.strategy]) {
-					k[post.strategy]++;
-				} else {
-					k[post.strategy] = 1
-				}
-
-				console.log("k is " + JSON.stringify(k));
-
-				console.log("writing a " + k[post.strategy] + " to " + post.mapname+"/"+post.strategy);
-				return admin.database().ref('statistics/' + post.mapname + '/').update(k).then(snap => {
-					console.log("updated statistics")
-				})
-			}));
-
 			// cleanup tmp folder
 			Promise.all(aPromises).then((a,b,c) => {
 				console.log("all 4 pushed successfully");
