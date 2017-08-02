@@ -32,7 +32,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 		}
 
 		function insertKey() {
-			if (!post.videoId || !post.title || !post.endSeconds || !post.endSeconds) {
+			if (!post.videoId || !post.title || !post.endSeconds) {
 				console.log("too less data to insert");
 				return;
 			} 
