@@ -20,7 +20,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			return admin.database().ref(`spotids/${sKey}`).once('value').then(snap => {
 				if(snap.val() === null) {
 					console.log("found an unused key, it is: " + sKey)
-					insertKey();
+					processSpot();
 					return sKey;
 				} else {
 					console.log("key " + sKey + " already in use, getting a new one.")
@@ -31,53 +31,33 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			})
 		}
 
-		function insertKey() {
+		function processSpot() {
 			// validation
 			if ( !post.strategy || !post.title || !post.mapname) {
 				console.log("no strategy/title/map provided");
 				return;
 			} else {
 				if ( post.strategy === "smoke" || post.strategy === "decoy") {
-					if (!post.videoId  || !post.endSeconds) {
-						console.log("no videoId or valid endtime provided for smoke/deocy")
-						return;
-					} 
+					processVideoSpot();
 				}
 				if ( post.strategy === "spot" || post.strategy === "awp") {
-					if (post.angle < 0 || post.angle > 360) {
-						console.log("wrong angle provider for awp/spot")
-						return;
-					}
-					if (post.picture_1 === "" && post.picture_2 === "" && post.picture_3 === "") {
-						console.log("no picture path provided")
-						return;
-					}
-					if (post.picture_1 !== "" && !post.picture_1.startsWith("http://i.imgur.com/")) {
-						console.log("picture 1 not hosted at imgur");
-						return;
-					}
-					if (post.picture_2 !== "" && !post.picture_2.startsWith("http://i.imgur.com/")) {
-						console.log("picture 2 not hosted at imgur");
-						return;
-					}
-					if (post.picture_3 !== "" && !post.picture_3.startsWith("http://i.imgur.com/")) {
-						console.log("picture 3 not hosted at imgur");
-						return;
-					}
+					processPictureSpot();
 				}
 			}
-			console.log("data seems fine, going in!");
+		}
 
-			// insert spotid data and use it as inversed key
-			let o = {},
-				aPromises = [];
+		// insert spotid data and use it as inversed key
+		function createSpotId() {
+			let o = {};
 			o[sKey] = {
 				mapName : post.mapname,
 				strategy : post.strategy
 			};
- 			aPromises.push(admin.database().ref('spotids/').update(o));
-			
-			// persist to spot data
+			return admin.database().ref('spotids/').update(o);
+		}
+
+		// persist to spot data
+		function createSpot() {
 			let spot = {};
 			spot[sKey] = {
 				videoId : post.videoId,
@@ -88,36 +68,79 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 				strategy : post.strategy,
 				published : false
 			}
-			aPromises.push(admin.database().ref('spots/' + post.mapname + '/' + post.strategy + '/')
-				.update(spot));
+			return admin.database().ref('spots/' + post.mapname + '/' + post.strategy + '/')
+				.update(spot);
+		}
 
-			// persist to location data
+		// persist to location data
+		function createLocation() {
 			let location = {};
 			location[sKey] = {
 				start : post.start,
-				end : post.end,
+				end : post.end || null,
 				published : false,
-				angle : 0
+				angle : post.angle || 0
 			}
-			aPromises.push(admin.database().ref('locations/' + post.mapname + '/' + post.strategy + '/')
-				.update(location));
+			return admin.database().ref('locations/' + post.mapname + '/' + post.strategy + '/')
+				.update(location);
+		}
 
-			// persist to release data
-			// we do this to save runtime. we could also run over every deep node
-			// like /de_dust2/smoke/xxxxx.json and filter for a published=false flag,
-			// but we would need to do this for every path which would also need
-			// further customizing if more maps get released.
+		// persist to release data
+		// we do this to save runtime. we could also run over every deep node
+		// like /de_dust2/smoke/xxxxx.json and filter for a published=false flag,
+		// but we would need to do this for every path which would also need
+		// further customizing if more maps get released.
+		function createReleaseCandidate() {
 			let releaseCandidate = {}
 			releaseCandidate[sKey] = Object.assign(post,{spotId:sKey});
-			aPromises.push(admin.database().ref('releaseCandidates/')
-				.update(releaseCandidate));
+			return admin.database().ref('releaseCandidates/')
+				.update(releaseCandidate);
+		}
+
+		function processVideoSpot () {
+			if (!post.videoId  || !post.endSeconds) {
+				console.log("no videoId or valid endtime provided for smoke/deocy")
+				return;
+			} 
+			console.log("data seems fine, going in!");
+
+			let aPromises = [];
+			aPromises.push(createSpotId());
+			aPromises.push(createSpot());
+			aPromises.push(createLocation());
+			aPromises.push(createReleaseCandidate());
 
 			// cleanup tmp folder
-			Promise.all(aPromises).then((a,b,c) => {
+			Promise.all(aPromises).then((a,b,c,d) => {
 				console.log("all 4 pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
 			})
 		}
+
+		function processPictureSpot () {
+			if (post.angle < 0 || post.angle > 360) {
+				console.log("wrong angle provider for awp/spot")
+				return;
+			}
+			if (post.picture_1 === "" && post.picture_2 === "" && post.picture_3 === "") {
+				console.log("no picture path provided")
+				return;
+			}
+			if (post.picture_1 !== "" && !post.picture_1.startsWith("http://i.imgur.com/")) {
+				console.log("picture 1 not hosted at imgur");
+				return;
+			}
+			if (post.picture_2 !== "" && !post.picture_2.startsWith("http://i.imgur.com/")) {
+				console.log("picture 2 not hosted at imgur");
+				return;
+			}
+			if (post.picture_3 !== "" && !post.picture_3.startsWith("http://i.imgur.com/")) {
+				console.log("picture 3 not hosted at imgur");
+				return;
+			}
+
+
+		} 
 
 		function makeid() {
 			var text = "";
