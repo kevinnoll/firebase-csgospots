@@ -32,12 +32,43 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 		}
 
 		function insertKey() {
-			if (!post.videoId || !post.title || !post.endSeconds) {
-				console.log("too less data to insert");
+			// validation
+			if ( !post.strategy || !post.title || !post.mapname) {
+				console.log("no strategy/title/map provided");
 				return;
-			} 
+			} else {
+				if ( post.strategy === "smoke" || post.strategy === "decoy") {
+					if (!post.videoId  || !post.endSeconds) {
+						console.log("no videoId or valid endtime provided for smoke/deocy")
+						return;
+					} 
+				}
+				if ( post.strategy === "spot" || post.strategy === "awp") {
+					if (post.angle < 0 || post.angle > 360) {
+						console.log("wrong angle provider for awp/spot")
+						return;
+					}
+					if (post.picture_1 === "" && post.picture_2 === "" && post.picture_3 === "") {
+						console.log("no picture path provided")
+						return;
+					}
+					if (post.picture_1 !== "" && !post.picture_1.startsWith("http://i.imgur.com/")) {
+						console.log("picture 1 not hosted at imgur");
+						return;
+					}
+					if (post.picture_2 !== "" && !post.picture_2.startsWith("http://i.imgur.com/")) {
+						console.log("picture 2 not hosted at imgur");
+						return;
+					}
+					if (post.picture_3 !== "" && !post.picture_3.startsWith("http://i.imgur.com/")) {
+						console.log("picture 3 not hosted at imgur");
+						return;
+					}
+				}
+			}
+			console.log("data seems fine, going in!");
 
-			// insert spotid data and use it inversed key
+			// insert spotid data and use it as inversed key
 			let o = {},
 				aPromises = [];
 			o[sKey] = {
