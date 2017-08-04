@@ -60,13 +60,16 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 		function createSpot() {
 			let spot = {};
 			spot[sKey] = {
-				videoId : post.videoId,
 				title : post.title,
-				startSeconds : post.startSeconds,
-				endSeconds : post.endSeconds,
 				mapName : post.mapname,
 				strategy : post.strategy,
-				published : false
+				published : false,
+				videoId : post.videoId || null,
+				startSeconds : post.startSeconds || null,
+				endSeconds : post.endSeconds || null,
+				picture_1 : post.picture_1 || null,
+				picture_2 : post.picture_2 || null,
+				picture_3 : post.picture_3 || null
 			}
 			return admin.database().ref('spots/' + post.mapname + '/' + post.strategy + '/')
 				.update(spot);
@@ -138,8 +141,19 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 				console.log("picture 3 not hosted at imgur");
 				return;
 			}
+			console.log("data seems fine, going in!");
 
+			let aPromises = [];
+			aPromises.push(createSpotId());
+			aPromises.push(createSpot());
+			aPromises.push(createLocation());
+			aPromises.push(createReleaseCandidate());
 
+			// cleanup tmp folder
+			Promise.all(aPromises).then((a,b,c,d) => {
+				console.log("all 4 pushed successfully");
+				admin.database().ref(`temp/${key}`).remove();
+			})
 		} 
 
 		function makeid() {
