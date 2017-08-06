@@ -80,6 +80,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			let location = {};
 			location[sKey] = {
 				start : post.start,
+				strategy : post.strategy,
 				end : post.end || null,
 				published : false,
 				angle : post.angle || 0
