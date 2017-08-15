@@ -83,7 +83,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 				strategy : post.strategy,
 				end : post.end || null,
 				published : false,
-				angle : post.angle || 0
+				angle : (post.strategy === 'spot' || post.strategy === 'awp') ? post.angle : null
 			}
 			return admin.database().ref('locations/' + post.mapname + '/' + post.strategy + '/')
 				.update(location);
