@@ -37,7 +37,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 				console.log("no strategy/title/map provided");
 				return;
 			} else {
-				if ( post.strategy === "smoke" || post.strategy === "decoy") {
+				if ( post.strategy === "smoke" || post.strategy === "decoy" || post.strategy === 'brand') {
 					processVideoSpot();
 				}
 				if ( post.strategy === "spot" || post.strategy === "awp") {
