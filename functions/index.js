@@ -7,6 +7,41 @@ const statistics = {};
 
 admin.initializeApp(functions.config().firebase);
 
+exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
+	.onCreate(event => {
+		console.log('received new user request');
+		const user = event.data.val();
+		const key = event.data.key;
+		const promises = [];
+
+		promises.push(createDisplayName());
+		promises.push(createUid());
+
+		Promise.all(promises).then((a,b) => {
+			admin.database().ref(`/tempuser/${key}`).remove();
+		})
+
+		// insert user to displayNames 
+		function createDisplayName() {
+			let o = {};
+			o[user.displayName] = {
+				email : user.email,
+				uid : user.uid
+			};
+			return admin.database().ref('displayNames/').update(o);
+		}
+
+		function createUid() {
+			let o = {};
+			o[user.uid] = {
+				email : user.email,
+				displayName : user.displayName
+			};
+			return admin.database().ref('uids/').update(o);
+		}
+		
+	})
+
 exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 	.onCreate(event => {
 		const post = event.data.val();
@@ -60,16 +95,17 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 		function createSpot() {
 			let spot = {};
 			spot[sKey] = {
+				date : admin.database.ServerValue.TIMESTAMP,				
 				title : post.title,
 				mapName : post.mapname,
 				strategy : post.strategy,
-				published : false,
 				videoId : post.videoId || null,
 				startSeconds : post.startSeconds || null,
 				endSeconds : post.endSeconds || null,
 				picture_1 : post.picture_1 || null,
 				picture_2 : post.picture_2 || null,
-				picture_3 : post.picture_3 || null
+				picture_3 : post.picture_3 || null,
+				displayName : post.displayName || null
 			}
 			return admin.database().ref('spots/' + post.mapname + '/' + post.strategy + '/')
 				.update(spot);
@@ -82,28 +118,59 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 				start : post.start,
 				strategy : post.strategy,
 				end : post.end || null,
-				published : false,
 				angle : (post.strategy === 'spot' || post.strategy === 'awp') ? post.angle : null
 			}
 			return admin.database().ref('locations/' + post.mapname + '/' + post.strategy + '/')
 				.update(location);
 		}
 
-		// persist to release data
-		// we do this to save runtime. we could also run over every deep node
-		// like /de_dust2/smoke/xxxxx.json and filter for a published=false flag,
-		// but we would need to do this for every path which would also need
-		// further customizing if more maps get released.
-		function createReleaseCandidate() {
-			let releaseCandidate = {}
-			releaseCandidate[sKey] = Object.assign(post,{spotId:sKey});
-			return admin.database().ref('releaseCandidates/')
-				.update(releaseCandidate);
+		function createStatistics () {
+			return admin.database().ref(`statistics/${post.mapname}/${post.strategy}`).once('value').then(function(snapshot) {
+				let k = snapshot.val() || {};
+				if (k.value) {
+					k.value++;
+				} else {
+					k.value = 1
+				}
+				
+				return admin.database().ref(`statistics/${post.mapname}/${post.strategy}`).update(k).then(snap => {
+					console.log("updated statistics")
+				})
+			});
+		}
+
+		// add usernode with spotids below
+		function createUserSpotMapping () {
+			let o = {};
+			o[sKey] = {
+				date : admin.database.ServerValue.TIMESTAMP,
+				strategy : post.strategy,
+				mapname : post.mapname,
+				title : post.title
+			};
+			return admin.database().ref(`userSpot/${post.uid}/spots/`).update(o);
+		}
+
+		function createUserStatistics () {
+			return admin.database().ref(`userSpot/${post.uid}/statistic/${post.strategy}`).once('value').then(function(snapshot) {
+				let k = snapshot.val() || {};
+				if (k.value) {
+					k.value++;
+				} else {
+					k.value = 1
+				}
+				
+				console.log("k is " + JSON.stringify(k));
+				console.log(`writing a ${k.value} to userSpot/${post.uid}/statistic/${post.strategy}`);
+				return admin.database().ref(`userSpot/${post.uid}/statistic/${post.strategy}`).update(k).then(snap => {
+					console.log("updated userstatstics")
+				})
+			});
 		}
 
 		function processVideoSpot () {
 			if (!post.videoId  || !post.endSeconds) {
-				console.log("no videoId or valid endtime provided for smoke/deocy")
+				console.log("no videoId or valid endtime provided for smoke/decoy")
 				return;
 			} 
 			console.log("data seems fine, going in!");
@@ -112,11 +179,13 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			aPromises.push(createSpotId());
 			aPromises.push(createSpot());
 			aPromises.push(createLocation());
-			aPromises.push(createReleaseCandidate());
+			aPromises.push(createStatistics());
+			aPromises.push(createUserSpotMapping());
+			aPromises.push(createUserStatistics());
 
 			// cleanup tmp folder
-			Promise.all(aPromises).then((a,b,c,d) => {
-				console.log("all 4 pushed successfully");
+			Promise.all(aPromises).then((a,b,c,d,e,f) => {
+				console.log("all 6 pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
 			})
 		}
@@ -148,11 +217,13 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			aPromises.push(createSpotId());
 			aPromises.push(createSpot());
 			aPromises.push(createLocation());
-			aPromises.push(createReleaseCandidate());
+			aPromises.push(createStatistics());			
+			aPromises.push(createUserSpotMapping());
+			aPromises.push(createUserStatistics());
 
 			// cleanup tmp folder
-			Promise.all(aPromises).then((a,b,c,d) => {
-				console.log("all 4 pushed successfully");
+			Promise.all(aPromises).then((a,b,c,d,e,f) => {
+				console.log("all 6 pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
 			})
 		} 
