@@ -16,8 +16,9 @@ exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
 
 		promises.push(createDisplayName());
 		promises.push(createUid());
+		promises.push(createUidEmail());
 
-		Promise.all(promises).then((a,b) => {
+		Promise.all(promises).then((a,b,c) => {
 			admin.database().ref(`/tempuser/${key}`).remove();
 		})
 
@@ -25,7 +26,6 @@ exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
 		function createDisplayName() {
 			let o = {};
 			o[user.displayName] = {
-				email : user.email,
 				uid : user.uid
 			};
 			return admin.database().ref('displayNames/').update(o);
@@ -34,10 +34,17 @@ exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
 		function createUid() {
 			let o = {};
 			o[user.uid] = {
-				email : user.email,
 				displayName : user.displayName
 			};
 			return admin.database().ref('uids/').update(o);
+		}
+
+		function createUidEmail() {
+			let o = {};
+			o[user.uid] = {
+				email : user.email
+			};
+			return admin.database().ref('uidEmail/').update(o);
 		}
 		
 	})
