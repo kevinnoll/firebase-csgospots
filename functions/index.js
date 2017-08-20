@@ -7,6 +7,37 @@ const statistics = {};
 
 admin.initializeApp(functions.config().firebase);
 
+exports.search = functions.https.onRequest((req, res) => {
+
+	if (req.method !== 'GET') {
+		res.status(403).send('Forbidden!');
+	}
+
+	cors(req, res, () => {
+		var words =  req.query["s"].split(" ");
+		// count hits for the split query string in search entity's "d"-value
+		// limit search set word by word
+
+		var ref = admin.database().ref("/search");
+		ref.once('value').then(snap => {
+
+			let candidates_before, candidates_after = snap, iter_w = 0;
+			while (candidates_after.length > 0 && iter_w < words.length) {
+				candidates_before = candidates_after;
+				candidates_after = [];
+				for (var i, len = candidates_before.length; i < len; i++) {
+					if (candidates_before[i].d.indexOf(words[iter_w]) >= 0) {
+						candidates_after.push(candidates_before[i]);
+					}
+				}
+				iter_w++;
+			}
+			// maybe consider ratings when valuating results
+			res.status(200).send(JSON.stringify(candidates_after));
+		});
+	});	
+})
+
 exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
 	.onCreate(event => {
 		console.log('received new user request');
@@ -146,6 +177,20 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			});
 		}
 
+		function createSearchEntry () {
+			let o = {};	
+			let relValues = [];	
+			relValues.push(post.mapName);
+			relValues.push(post.strategy);
+			relValues.push(post.displayName);
+			relValues.push(post.title);
+			o[sKey] = {
+				d: relValues.join(" ")
+			}
+			return admin.database().ref('search/')
+				.update(o);
+		}
+
 		// add usernode with spotids below
 		function createUserSpotMapping () {
 			let o = {};
@@ -189,10 +234,11 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			aPromises.push(createStatistics());
 			aPromises.push(createUserSpotMapping());
 			aPromises.push(createUserStatistics());
+			aPromises.push(createSearchEntry());
 
 			// cleanup tmp folder
-			Promise.all(aPromises).then((a,b,c,d,e,f) => {
-				console.log("all 6 pushed successfully");
+			Promise.all(aPromises).then((a,b,c,d,e,f,g) => {
+				console.log("all 6 (+ 1 search) pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
 			})
 		}
@@ -227,10 +273,11 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			aPromises.push(createStatistics());			
 			aPromises.push(createUserSpotMapping());
 			aPromises.push(createUserStatistics());
+			aPromises.push(createSearchEntry());
 
 			// cleanup tmp folder
-			Promise.all(aPromises).then((a,b,c,d,e,f) => {
-				console.log("all 6 pushed successfully");
+			Promise.all(aPromises).then((a,b,c,d,e,f,g) => {
+				console.log("all 6 (+ 1 search) pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
 			})
 		} 

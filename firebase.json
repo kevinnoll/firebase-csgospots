@@ -1,1 +1,1968 @@
-{}
+{
+    "displayNames" : {
+      "kev" : {
+        "uid" : "UKvkmMqMMWTiUErnUIFKPtciyCr1"
+      },
+      "test" : {
+        "uid" : "mojtZGk2Q8N9JFF6hOfwYrBjCRr1"
+      }
+    },
+    "existing_maps" : {
+      "cs_agency" : "cs",
+      "cs_insertion" : "cs",
+      "cs_office" : "cs",
+      "de_austria" : "de",
+      "de_cache" : "de",
+      "de_canals" : "de",
+      "de_cbble" : "de",
+      "de_dust2" : "de",
+      "de_inferno" : "de",
+      "de_mirage" : "de",
+      "de_nuke" : "de",
+      "de_overpass" : "de",
+      "de_shipped" : "de",
+      "de_thrilled" : "de",
+      "de_train" : "de"
+    },
+    "locations" : {
+      "de_austria" : {
+        "smoke" : {
+          "07KLq" : {
+            "end" : {
+              "x" : 577,
+              "y" : 517
+            },
+            "published" : true,
+            "start" : {
+              "x" : 577,
+              "y" : 181
+            },
+            "strategy" : "smoke"
+          },
+          "LGLhH" : {
+            "end" : {
+              "x" : 610,
+              "y" : 473
+            },
+            "published" : true,
+            "start" : {
+              "x" : 440,
+              "y" : 555
+            },
+            "strategy" : "smoke"
+          },
+          "MZsBb" : {
+            "end" : {
+              "x" : 278,
+              "y" : 319
+            },
+            "published" : true,
+            "start" : {
+              "x" : 509,
+              "y" : 128
+            },
+            "strategy" : "smoke"
+          },
+          "Vmdec" : {
+            "end" : {
+              "x" : 296,
+              "y" : 444
+            },
+            "published" : true,
+            "start" : {
+              "x" : 475,
+              "y" : 110
+            },
+            "strategy" : "smoke"
+          },
+          "pd0wz" : {
+            "end" : {
+              "x" : 622,
+              "y" : 385
+            },
+            "published" : true,
+            "start" : {
+              "x" : 391,
+              "y" : 668
+            },
+            "strategy" : "smoke"
+          }
+        }
+      },
+      "de_canals" : {
+        "smoke" : {
+          "EoMfh" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 549,
+              "y" : 564
+            },
+            "published" : true,
+            "start" : {
+              "x" : 575,
+              "y" : 633
+            },
+            "strategy" : "smoke"
+          },
+          "FhOzu" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 290,
+              "y" : 633
+            },
+            "published" : true,
+            "start" : {
+              "x" : 517,
+              "y" : 398
+            },
+            "strategy" : "smoke"
+          },
+          "LwrkR" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 672,
+              "y" : 692
+            },
+            "published" : true,
+            "start" : {
+              "x" : 820,
+              "y" : 467
+            },
+            "strategy" : "smoke"
+          },
+          "a2xSJ" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 513,
+              "y" : 568
+            },
+            "published" : true,
+            "start" : {
+              "x" : 555,
+              "y" : 723
+            },
+            "strategy" : "smoke"
+          },
+          "hlCr1" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 382,
+              "y" : 798
+            },
+            "published" : true,
+            "start" : {
+              "x" : 287,
+              "y" : 549
+            },
+            "strategy" : "smoke"
+          }
+        }
+      },
+      "de_cbble" : {
+        "smoke" : {
+          "2cHRg" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 643,
+              "y" : 554
+            },
+            "published" : true,
+            "start" : {
+              "x" : 554,
+              "y" : 507
+            },
+            "strategy" : "smoke"
+          },
+          "2xVgr" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 307,
+              "y" : 646
+            },
+            "published" : true,
+            "start" : {
+              "x" : 354,
+              "y" : 310
+            },
+            "strategy" : "smoke"
+          },
+          "ADOQb" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 486,
+              "y" : 650
+            },
+            "published" : true,
+            "start" : {
+              "x" : 556,
+              "y" : 508
+            },
+            "strategy" : "smoke"
+          },
+          "Lfzca" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 647,
+              "y" : 519
+            },
+            "published" : true,
+            "start" : {
+              "x" : 337,
+              "y" : 694
+            },
+            "strategy" : "smoke"
+          },
+          "UATA1" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 612,
+              "y" : 619
+            },
+            "published" : true,
+            "start" : {
+              "x" : 553,
+              "y" : 505
+            },
+            "strategy" : "smoke"
+          },
+          "Uddi5" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 220,
+              "y" : 714
+            },
+            "published" : true,
+            "start" : {
+              "x" : 89,
+              "y" : 479
+            },
+            "strategy" : "smoke"
+          },
+          "X0P90" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 118,
+              "y" : 585
+            },
+            "published" : true,
+            "start" : {
+              "x" : 304,
+              "y" : 756
+            },
+            "strategy" : "smoke"
+          },
+          "ZcGJI" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 261,
+              "y" : 712
+            },
+            "published" : true,
+            "start" : {
+              "x" : 58,
+              "y" : 507
+            },
+            "strategy" : "smoke"
+          },
+          "bYJsA" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 670,
+              "y" : 714
+            },
+            "published" : true,
+            "start" : {
+              "x" : 553,
+              "y" : 506
+            },
+            "strategy" : "smoke"
+          },
+          "bzthY" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 282,
+              "y" : 677
+            },
+            "published" : true,
+            "start" : {
+              "x" : 56,
+              "y" : 514
+            },
+            "strategy" : "smoke"
+          },
+          "fGfJD" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 497,
+              "y" : 603
+            },
+            "published" : true,
+            "start" : {
+              "x" : 525,
+              "y" : 428
+            },
+            "strategy" : "smoke"
+          },
+          "gDnmb" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 618,
+              "y" : 652
+            },
+            "published" : true,
+            "start" : {
+              "x" : 634,
+              "y" : 493
+            },
+            "strategy" : "smoke"
+          },
+          "hb3ZL" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 305,
+              "y" : 752
+            },
+            "published" : true,
+            "start" : {
+              "x" : 64,
+              "y" : 477
+            },
+            "strategy" : "smoke"
+          },
+          "sWkWb" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 304,
+              "y" : 647
+            },
+            "published" : true,
+            "start" : {
+              "x" : 55,
+              "y" : 417
+            },
+            "strategy" : "smoke"
+          },
+          "uo2EA" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 649,
+              "y" : 523
+            },
+            "published" : true,
+            "start" : {
+              "x" : 481,
+              "y" : 665
+            },
+            "strategy" : "smoke"
+          },
+          "xsdrx" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 721,
+              "y" : 708
+            },
+            "published" : true,
+            "start" : {
+              "x" : 554,
+              "y" : 505
+            },
+            "strategy" : "smoke"
+          },
+          "y5bIg" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 678,
+              "y" : 543
+            },
+            "published" : true,
+            "start" : {
+              "x" : 639,
+              "y" : 514
+            },
+            "strategy" : "smoke"
+          }
+        }
+      },
+      "de_dust2" : {
+        "smoke" : {
+          "21IvT" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 183,
+              "y" : 165
+            },
+            "published" : true,
+            "start" : {
+              "x" : 372,
+              "y" : 221
+            },
+            "strategy" : "smoke"
+          },
+          "3MP56" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 757,
+              "y" : 139
+            },
+            "published" : true,
+            "start" : {
+              "x" : 569,
+              "y" : 437
+            },
+            "strategy" : "smoke"
+          },
+          "6yTYN" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 655,
+              "y" : 246
+            },
+            "published" : true,
+            "start" : {
+              "x" : 650,
+              "y" : 527
+            },
+            "strategy" : "smoke"
+          },
+          "A8dVi" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 815,
+              "y" : 485
+            },
+            "published" : true,
+            "start" : {
+              "x" : 599,
+              "y" : 831
+            },
+            "strategy" : "smoke"
+          },
+          "AGv9f" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 810,
+              "y" : 485
+            },
+            "published" : true,
+            "start" : {
+              "x" : 564,
+              "y" : 769
+            },
+            "strategy" : "smoke"
+          },
+          "Bg29a" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 611,
+              "y" : 267
+            },
+            "published" : true,
+            "start" : {
+              "x" : 725,
+              "y" : 571
+            },
+            "strategy" : "smoke"
+          },
+          "CFtQP" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 455,
+              "y" : 423
+            },
+            "published" : true,
+            "start" : {
+              "x" : 701,
+              "y" : 622
+            },
+            "strategy" : "smoke"
+          },
+          "E3nfi" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 81,
+              "y" : 330
+            },
+            "published" : true,
+            "start" : {
+              "x" : 385,
+              "y" : 163
+            },
+            "strategy" : "smoke"
+          },
+          "H7MbU" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 659,
+              "y" : 251
+            },
+            "published" : true,
+            "start" : {
+              "x" : 813,
+              "y" : 492
+            },
+            "strategy" : "smoke"
+          },
+          "KL9ir" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 181,
+              "y" : 314
+            },
+            "published" : true,
+            "start" : {
+              "x" : 346,
+              "y" : 177
+            },
+            "strategy" : "smoke"
+          },
+          "UZAuD" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 541,
+              "y" : 413
+            },
+            "published" : true,
+            "start" : {
+              "x" : 892,
+              "y" : 423
+            },
+            "strategy" : "smoke"
+          },
+          "V7Vl3" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 430,
+              "y" : 699
+            },
+            "published" : true,
+            "start" : {
+              "x" : 457,
+              "y" : 316
+            },
+            "strategy" : "smoke"
+          },
+          "WThHH" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 485,
+              "y" : 260
+            },
+            "published" : true,
+            "start" : {
+              "x" : 467,
+              "y" : 437
+            },
+            "strategy" : "smoke"
+          },
+          "aRqVF" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 678,
+              "y" : 578
+            },
+            "published" : true,
+            "start" : {
+              "x" : 903,
+              "y" : 286
+            },
+            "strategy" : "smoke"
+          },
+          "aYn2T" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 799,
+              "y" : 255
+            },
+            "published" : true,
+            "start" : {
+              "x" : 810,
+              "y" : 483
+            },
+            "strategy" : "smoke"
+          },
+          "clfs6" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 743,
+              "y" : 186
+            },
+            "published" : true,
+            "start" : {
+              "x" : 585,
+              "y" : 397
+            },
+            "strategy" : "smoke"
+          },
+          "dAGGW" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 490,
+              "y" : 237
+            },
+            "published" : true,
+            "start" : {
+              "x" : 469,
+              "y" : 437
+            },
+            "strategy" : "smoke"
+          },
+          "iikZt" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 432,
+              "y" : 446
+            },
+            "published" : true,
+            "start" : {
+              "x" : 492,
+              "y" : 248
+            },
+            "strategy" : "smoke"
+          },
+          "k8aIf" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 457,
+              "y" : 427
+            },
+            "published" : true,
+            "start" : {
+              "x" : 599,
+              "y" : 692
+            },
+            "strategy" : "smoke"
+          },
+          "koYCr" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 676,
+              "y" : 576
+            },
+            "published" : true,
+            "start" : {
+              "x" : 662,
+              "y" : 202
+            },
+            "strategy" : "smoke"
+          },
+          "yAbmW" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 457,
+              "y" : 418
+            },
+            "published" : true,
+            "start" : {
+              "x" : 334,
+              "y" : 430
+            },
+            "strategy" : "smoke"
+          }
+        }
+      },
+      "de_mirage" : {
+        "decoy" : {
+          "dA18i" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 350,
+              "y" : 514
+            },
+            "published" : true,
+            "start" : {
+              "x" : 725,
+              "y" : 508
+            },
+            "strategy" : "decoy"
+          }
+        },
+        "smoke" : {
+          "A19gc" : {
+            "angle" : 0,
+            "end" : {
+              "x" : 384,
+              "y" : 186
+            },
+            "published" : true,
+            "start" : {
+              "x" : 376,
+              "y" : 210
+            },
+            "strategy" : "smoke"
+          }
+        },
+        "spot" : {
+          "9ZWch" : {
+            "angle" : 225,
+            "published" : true,
+            "start" : {
+              "x" : 117,
+              "y" : 251
+            },
+            "strategy" : "spot"
+          }
+        }
+      }
+    },
+    "news" : {
+      "newestPatchNoteFile" : 10
+    },
+    "ratings" : {
+      "de_austria" : {
+        "smoke" : {
+          "07KLq" : {
+            "value" : 0
+          },
+          "LGLhH" : {
+            "value" : 0
+          },
+          "MZsBb" : {
+            "value" : 0
+          },
+          "Vmdec" : {
+            "value" : 0
+          },
+          "pd0wz" : {
+            "value" : 0
+          }
+        }
+      },
+      "de_canals" : {
+        "smoke" : {
+          "FhOzu" : {
+            "value" : 0
+          }
+        }
+      },
+      "de_cbble" : {
+        "smoke" : {
+          "2xVgr" : {
+            "value" : 0
+          },
+          "Uddi5" : {
+            "value" : 1
+          },
+          "bYJsA" : {
+            "value" : 0
+          },
+          "fGfJD" : {
+            "value" : 0
+          },
+          "sWkWb" : {
+            "value" : 0
+          },
+          "undefined" : {
+            "value" : 0
+          },
+          "xsdrx" : {
+            "value" : 0
+          }
+        }
+      },
+      "de_dust2" : {
+        "defending_positions" : {
+          "ct" : {
+            "2001" : {
+              "value" : 0
+            }
+          }
+        },
+        "smoke" : {
+          "21IvT" : {
+            "value" : 0
+          },
+          "3MP56" : {
+            "value" : 0
+          },
+          "A8dVi" : {
+            "value" : 0
+          },
+          "E3nfi" : {
+            "value" : 0
+          },
+          "iikZt" : {
+            "value" : 0
+          },
+          "k8aIf" : {
+            "value" : 2
+          }
+        }
+      },
+      "de_mirage" : {
+        "decoy" : {
+          "dA18i" : {
+            "value" : 1
+          }
+        },
+        "spot" : {
+          "9ZWch" : {
+            "value" : 0
+          }
+        }
+      }
+    },
+    "spotids" : {
+      "07KLq" : {
+        "mapName" : "de_austria",
+        "strategy" : "smoke"
+      },
+      "21IvT" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "2cHRg" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "2xVgr" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "3MP56" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "6yTYN" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "9ZWch" : {
+        "mapName" : "de_mirage",
+        "strategy" : "spot"
+      },
+      "A19gc" : {
+        "mapName" : "de_mirage",
+        "strategy" : "smoke"
+      },
+      "A8dVi" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "ADOQb" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "AGv9f" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "Bg29a" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "CFtQP" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "E3nfi" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "EoMfh" : {
+        "mapName" : "de_canals",
+        "strategy" : "smoke"
+      },
+      "FhOzu" : {
+        "mapName" : "de_canals",
+        "strategy" : "smoke"
+      },
+      "H7MbU" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "KL9ir" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "LGLhH" : {
+        "mapName" : "de_austria",
+        "strategy" : "smoke"
+      },
+      "Lfzca" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "LwrkR" : {
+        "mapName" : "de_canals",
+        "strategy" : "smoke"
+      },
+      "MZsBb" : {
+        "mapName" : "de_austria",
+        "strategy" : "smoke"
+      },
+      "UATA1" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "UZAuD" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "Uddi5" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "V7Vl3" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "Vmdec" : {
+        "mapName" : "de_austria",
+        "strategy" : "smoke"
+      },
+      "WThHH" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "X0P90" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "ZcGJI" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "a2xSJ" : {
+        "mapName" : "de_canals",
+        "strategy" : "smoke"
+      },
+      "aRqVF" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "aYn2T" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "bYJsA" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "bzthY" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "clfs6" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "dA18i" : {
+        "mapName" : "de_mirage",
+        "strategy" : "decoy"
+      },
+      "dAGGW" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "fGfJD" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "gDnmb" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "hb3ZL" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "hlCr1" : {
+        "mapName" : "de_canals",
+        "strategy" : "smoke"
+      },
+      "iikZt" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "k8aIf" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "koYCr" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      },
+      "pd0wz" : {
+        "mapName" : "de_austria",
+        "strategy" : "smoke"
+      },
+      "sWkWb" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "uo2EA" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "xsdrx" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "y5bIg" : {
+        "mapName" : "de_cbble",
+        "strategy" : "smoke"
+      },
+      "yAbmW" : {
+        "mapName" : "de_dust2",
+        "strategy" : "smoke"
+      }
+    },
+    "spots" : {
+      "de_austria" : {
+        "smoke" : {
+          "07KLq" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_austria",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke B short from CT spawn",
+            "videoId" : "F77U04r37Zc"
+          },
+          "LGLhH" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_austria",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke B short from mid well",
+            "videoId" : "rcDkjDxQZus"
+          },
+          "MZsBb" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_austria",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A long from CT spawn",
+            "videoId" : "AsdTnxyRcU0"
+          },
+          "Vmdec" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_austria",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A long from CT spawn",
+            "videoId" : "Dc6wTKOvpDk"
+          },
+          "pd0wz" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : "16",
+            "mapName" : "de_austria",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke B connector from T spawn",
+            "videoId" : "AvtUHGSeU2g"
+          }
+        }
+      },
+      "de_canals" : {
+        "smoke" : {
+          "EoMfh" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_canals",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke mid T stairs from windows to B",
+            "videoId" : "6700tARNvyA"
+          },
+          "FhOzu" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_canals",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A spot from T kiosk",
+            "videoId" : "HWgDXMsmFW0"
+          },
+          "LwrkR" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_canals",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke B spot from T kiosk",
+            "videoId" : "vdnbvQCKEfI"
+          },
+          "a2xSJ" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_canals",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke mid windows from CT mid",
+            "videoId" : "qjk2y43kqz4"
+          },
+          "hlCr1" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_canals",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke CT balcony from behind A spot",
+            "videoId" : "Wa-QWF1oWvA"
+          }
+        }
+      },
+      "de_cbble" : {
+        "smoke" : {
+          "2cHRg" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke out B drop peeks from in front of B",
+            "videoId" : "zG4WR3iDMiQ"
+          },
+          "2xVgr" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : "31",
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "DeadFox's cbble A connector smoke",
+            "videoId" : "KduNG57AEqY"
+          },
+          "ADOQb" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke B doubledoors from in front of B long",
+            "videoId" : "L3aF5Oxl8E0"
+          },
+          "Lfzca" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke in front of B from CT connector",
+            "videoId" : "GMf1326BvTo"
+          },
+          "UATA1" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke between B spot and B doubledoors from in front of B",
+            "videoId" : "CUm94xRM6nI"
+          },
+          "Uddi5" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke right side of A truck from A long",
+            "videoId" : "h0yLaUFx4No"
+          },
+          "X0P90" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A long from A balcony",
+            "videoId" : "RvebhIb5tuo"
+          },
+          "ZcGJI" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke left side of A truck from A long",
+            "videoId" : "6AEEzF8q1l8"
+          },
+          "bYJsA" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke right side of chicken from in front of B",
+            "videoId" : "ftyqabqLNvY"
+          },
+          "bzthY" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A hut from A long",
+            "videoId" : "5fAJ_ascF5w"
+          },
+          "fGfJD" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke drop to B spot from inside T buildings",
+            "videoId" : "tllknXtioW8"
+          },
+          "gDnmb" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke behind B spot from in front of B",
+            "videoId" : "G0GCH2tUOm8"
+          },
+          "hb3ZL" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A balcony from A long",
+            "videoId" : "NRxdMwKnL_0"
+          },
+          "sWkWb" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "smoke A doubledoor from A long",
+            "videoId" : "5tgbTfbymFY"
+          },
+          "uo2EA" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke B long from B doubledoors",
+            "videoId" : "jcgDa6XakwE"
+          },
+          "xsdrx" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke left side of chicken from in front of B",
+            "videoId" : "uEdjZx6FTxw"
+          },
+          "y5bIg" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_cbble",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke B long from behind B long",
+            "videoId" : "qG7IpuMsooE"
+          }
+        }
+      },
+      "de_dust2" : {
+        "smoke" : {
+          "21IvT" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke B spot from CT spawn",
+            "videoId" : "S_EBXVQBRBg"
+          },
+          "3MP56" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : "16",
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A spot from A short",
+            "videoId" : "XreiXrat124"
+          },
+          "6yTYN" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke CT from A long",
+            "videoId" : "ooVHiO15SSI"
+          },
+          "A8dVi" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A long from T spawn",
+            "videoId" : "8GrbQ2yz_qs"
+          },
+          "AGv9f" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A long from T spawn boxes",
+            "videoId" : "U1An0QqNpmE"
+          },
+          "Bg29a" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A short from A long",
+            "videoId" : "Nmp--zlHFLI"
+          },
+          "CFtQP" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke mid box from A long",
+            "videoId" : "yeiomXn0BZc"
+          },
+          "E3nfi" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke B tunnels from CT spawn",
+            "videoId" : "W9fkQMeKSj8"
+          },
+          "H7MbU" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke CT from A long",
+            "videoId" : "NWG-55iO2Kw"
+          },
+          "KL9ir" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke B car from CT spawn",
+            "videoId" : "FPTQsrTeW2w"
+          },
+          "UZAuD" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A short from A long",
+            "videoId" : "4NHWdrd6Nso"
+          },
+          "V7Vl3" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke T suicide from CT spawn",
+            "videoId" : "qI9oylMJ8bY"
+          },
+          "WThHH" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke CT from mid box",
+            "videoId" : "RuixJvfrApE"
+          },
+          "aRqVF" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A long doubledoors",
+            "videoId" : "NjrJPT3kd_Y"
+          },
+          "aYn2T" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke CT crossing from A long",
+            "videoId" : "0edFny_1ODg"
+          },
+          "clfs6" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A boxes from A short",
+            "videoId" : "uul1qfrYWtI"
+          },
+          "dAGGW" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke CT from mid with 2 smokes",
+            "videoId" : "1tSBaUSCUTI"
+          },
+          "iikZt" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke lower mid from CT spawn",
+            "videoId" : "Hp1_97KS3RI"
+          },
+          "k8aIf" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke mid box from T spawn",
+            "videoId" : "VPxBa9xFyrM"
+          },
+          "koYCr" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke A long from CT spawn",
+            "videoId" : "LrLTu3gnCwI"
+          },
+          "yAbmW" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_dust2",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "Smoke mid box tunnels",
+            "videoId" : "DBLcz_5h7Fk"
+          }
+        }
+      },
+      "de_mirage" : {
+        "decoy" : {
+          "dA18i" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_mirage",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "decoy",
+            "title" : "Break CT vent with a decoy from upper mid ",
+            "videoId" : "bHUq-E-CQcE"
+          }
+        },
+        "smoke" : {
+          "A19gc" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "endSeconds" : 15,
+            "mapName" : "de_mirage",
+            "published" : true,
+            "startSeconds" : 0,
+            "strategy" : "smoke",
+            "title" : "One way smoke out of B houses",
+            "videoId" : "CECnYZ_9qZI"
+          }
+        },
+        "spot" : {
+          "9ZWch" : {
+            "date" : 1502985470731,
+            "displayName" : "kev",
+            "mapName" : "de_mirage",
+            "picture_1" : "http://i.imgur.com/O48IhQi.png",
+            "published" : true,
+            "strategy" : "spot",
+            "title" : "Aim B apartements from behind bench"
+          }
+        }
+      }
+    },
+    "statistics" : {
+      "de_austria" : {
+        "smoke" : {
+          "value" : 5
+        }
+      },
+      "de_canals" : {
+        "smoke" : {
+          "value" : 5
+        }
+      },
+      "de_cbble" : {
+        "smoke" : {
+          "value" : 17
+        }
+      },
+      "de_dust2" : {
+        "smoke" : {
+          "value" : 21
+        }
+      },
+      "de_mirage" : {
+        "decoy" : {
+          "value" : 1
+        },
+        "smoke" : {
+          "value" : 1
+        },
+        "spot" : {
+          "value" : 1
+        }
+      }
+    },
+    "uidEmail" : {
+      "UKvkmMqMMWTiUErnUIFKPtciyCr1" : {
+        "email" : "kevinnoll90@gmail.com"
+      },
+      "mojtZGk2Q8N9JFF6hOfwYrBjCRr1" : {
+        "email" : "test@test.com"
+      }
+    },
+    "uids" : {
+      "UKvkmMqMMWTiUErnUIFKPtciyCr1" : {
+        "displayName" : "kev"
+      },
+      "mojtZGk2Q8N9JFF6hOfwYrBjCRr1" : {
+        "displayName" : "test"
+      }
+    },
+    "userSpot" : {
+      "UKvkmMqMMWTiUErnUIFKPtciyCr1" : {
+        "spots" : {
+          "07KLq" : {
+            "date" : 1502985470731,
+            "mapname" : "de_austria",
+            "strategy" : "smoke",
+            "title" : "Smoke B short from CT spawn"
+          },
+          "21IvT" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke B spot from CT spawn"
+          },
+          "2cHRg" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke out B drop peeks from in front of B"
+          },
+          "2xVgr" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "DeadFox's cbble A connector smoke"
+          },
+          "3MP56" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke A spot from A short"
+          },
+          "6yTYN" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke CT from A long"
+          },
+          "9ZWch" : {
+            "date" : 1502985470731,
+            "mapname" : "de_mirage",
+            "strategy" : "spot",
+            "title" : "Aim B apartements from behind bench"
+          },
+          "A19gc" : {
+            "date" : 1502985470731,
+            "mapname" : "de_mirage",
+            "strategy" : "smoke",
+            "title" : "One way smoke out of B houses"
+          },
+          "A8dVi" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke A long from T spawn"
+          },
+          "ADOQb" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke B doubledoors from in front of B long"
+          },
+          "AGv9f" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke A long from T spawn boxes"
+          },
+          "Bg29a" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke A short from A long"
+          },
+          "CFtQP" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke mid box from A long"
+          },
+          "E3nfi" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke B tunnels from CT spawn"
+          },
+          "EoMfh" : {
+            "date" : 1502985470731,
+            "mapname" : "de_canals",
+            "strategy" : "smoke",
+            "title" : "Smoke mid T stairs from windows to B"
+          },
+          "FhOzu" : {
+            "date" : 1502985470731,
+            "mapname" : "de_canals",
+            "strategy" : "smoke",
+            "title" : "Smoke A spot from T kiosk"
+          },
+          "H7MbU" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke CT from A long"
+          },
+          "KL9ir" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke B car from CT spawn"
+          },
+          "LGLhH" : {
+            "date" : 1502985470731,
+            "mapname" : "de_austria",
+            "strategy" : "smoke",
+            "title" : "Smoke B short from mid well"
+          },
+          "Lfzca" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke in front of B from CT connector"
+          },
+          "LwrkR" : {
+            "date" : 1502985470731,
+            "mapname" : "de_canals",
+            "strategy" : "smoke",
+            "title" : "Smoke B spot from T kiosk"
+          },
+          "MZsBb" : {
+            "date" : 1502985470731,
+            "mapname" : "de_austria",
+            "strategy" : "smoke",
+            "title" : "Smoke A long from CT spaw"
+          },
+          "UATA1" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke between B spot and B doubledoors from in front of B"
+          },
+          "UZAuD" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke A short from A long"
+          },
+          "Uddi5" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke right side of A truck from A long"
+          },
+          "V7Vl3" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke T suicide from CT spawn"
+          },
+          "Vmdec" : {
+            "date" : 1502985470731,
+            "mapname" : "de_austria",
+            "strategy" : "smoke",
+            "title" : "Smoke A long from CT spawn"
+          },
+          "WThHH" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke CT from mid box"
+          },
+          "X0P90" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke A long from A balcony"
+          },
+          "ZcGJI" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke left side of A truck from A long"
+          },
+          "a2xSJ" : {
+            "date" : 1502985470731,
+            "mapname" : "de_canals",
+            "strategy" : "smoke",
+            "title" : "Smoke mid windows from CT mid"
+          },
+          "aRqVF" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke A long doubledoors"
+          },
+          "aYn2T" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke CT crossing from A long"
+          },
+          "bYJsA" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke right side of chicken from in front of B"
+          },
+          "bzthY" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke A hut from A long"
+          },
+          "clfs6" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke A boxes from A short"
+          },
+          "dA18i" : {
+            "date" : 1502985470731,
+            "mapname" : "de_mirage",
+            "strategy" : "decoy",
+            "title" : "Break CT vent with a decoy from upper mid "
+          },
+          "dAGGW" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke CT from mid with 2 smokes"
+          },
+          "fGfJD" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke drop to B spot from inside T buildings"
+          },
+          "gDnmb" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke behind B spot from in front of B"
+          },
+          "hb3ZL" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke A balcony from A long"
+          },
+          "hlCr1" : {
+            "date" : 1502985470731,
+            "mapname" : "de_canals",
+            "strategy" : "smoke",
+            "title" : "Smoke CT balcony from behind A spot"
+          },
+          "iikZt" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke lower mid from CT spawn"
+          },
+          "k8aIf" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke mid box from T spawn"
+          },
+          "koYCr" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke A long from CT spawn"
+          },
+          "pd0wz" : {
+            "date" : 1502985470731,
+            "mapname" : "de_austria",
+            "strategy" : "smoke",
+            "title" : "Smoke B connector from T spawn"
+          },
+          "sWkWb" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "smoke A doubledoor from A long"
+          },
+          "uo2EA" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke B long from B doubledoors"
+          },
+          "xsdrx" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke left side of chicken from in front of B"
+          },
+          "y5bIg" : {
+            "date" : 1502985470731,
+            "mapname" : "de_cbble",
+            "strategy" : "smoke",
+            "title" : "Smoke B long from behind B long"
+          },
+          "yAbmW" : {
+            "date" : 1502985470731,
+            "mapname" : "de_dust2",
+            "strategy" : "smoke",
+            "title" : "Smoke mid box tunnels"
+          }
+        },
+        "statistic" : {
+          "decoy" : {
+            "value" : 1
+          },
+          "smoke" : {
+            "value" : 49
+          },
+          "spot" : {
+            "value" : 1
+          }
+        }
+      }
+    }
+  }
+  
