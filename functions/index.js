@@ -7,6 +7,47 @@ const statistics = {};
 
 admin.initializeApp(functions.config().firebase);
 
+exports.dev_migrateSpotsToSearch = functions.https.onRequest((req, res) => {
+	
+		if (req.method !== 'GET') {
+			res.status(403).send('Forbidden!');
+		}
+	
+		cors(req, res, () => {
+			var refSpot = admin.database().ref("/spots");
+			var refSearch = admin.database().ref("/search");
+			
+			refSpot.once('value').then(snap => {
+				if (!snap.exists()) {
+					res.status(200).send("No data");
+					return;
+				}
+
+				let spots = snap.val();
+				let debug_msgs = [];
+				let searchEntries = {};
+				for (let i_map in spots) {
+					for (let i_strat in spots[i_map]) {
+						for (let i_key in spots[i_map][i_strat]) {
+							let spot = spots[i_map][i_strat][i_key];
+							let relValues = [];	
+							relValues.push(spot.mapName);
+							relValues.push(spot.strategy);
+							relValues.push(spot.displayName);
+							relValues.push(spot.title);
+							searchEntries[i_key] = {
+								d: relValues.join(" ")
+							}
+							debug_msgs.push(i_key);
+						}
+					}
+				}
+				refSearch.update(searchEntries);
+				res.status(200).send("migration successful for: " + debug_msgs.join(","));
+			});
+		});	
+	})
+
 exports.search = functions.https.onRequest((req, res) => {
 
 	if (req.method !== 'GET') {
@@ -14,26 +55,26 @@ exports.search = functions.https.onRequest((req, res) => {
 	}
 
 	cors(req, res, () => {
-		var words =  req.query["s"].split(" ");
-		// count hits for the split query string in search entity's "d"-value
-		// limit search set word by word
+		var words = req.query["s"].split(" ");
 
 		var ref = admin.database().ref("/search");
 		ref.once('value').then(snap => {
+			if (!snap.exists()) {
+				res.status(200).send("No data");
+				return;
+			}
 
-			let candidates_before, candidates_after = snap, iter_w = 0;
-			while (candidates_after.length > 0 && iter_w < words.length) {
-				candidates_before = candidates_after;
-				candidates_after = [];
-				for (var i, len = candidates_before.length; i < len; i++) {
-					if (candidates_before[i].d.indexOf(words[iter_w]) >= 0) {
-						candidates_after.push(candidates_before[i]);
+			let candidates = snap.val(), iter_w = 0;
+			while (candidates !== {} && iter_w < words.length) {
+				for (var i in candidates) {
+					if (candidates[i].d.indexOf(words[iter_w]) < 0) {
+						delete candidates[i];
 					}
 				}
 				iter_w++;
 			}
 			// maybe consider ratings when valuating results
-			res.status(200).send(JSON.stringify(candidates_after));
+			res.status(200).send(JSON.stringify(candidates));
 		});
 	});	
 })
