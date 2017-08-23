@@ -36,7 +36,10 @@ exports.dev_migrateSpotsToSearch = functions.https.onRequest((req, res) => {
 							relValues.push(spot.displayName);
 							relValues.push(spot.title);
 							searchEntries[i_key] = {
-								d: relValues.join(" ")
+								d: relValues.join(" "),
+								title : spot.title,
+								mapName: spot.mapName,
+								strategy: spot.strategy
 							}
 							debug_msgs.push(i_key);
 						}
@@ -64,15 +67,16 @@ exports.search = functions.https.onRequest((req, res) => {
 				return;
 			}
 
-			let candidates = snap.val(), iter_w = 0;
-			while (candidates !== {} && iter_w < words.length) {
+			let candidates = snap.val(), i_word = 0;
+			while (candidates !== {} && i_word < words.length) {
 				for (var i in candidates) {
-					if (candidates[i].d.indexOf(words[iter_w]) < 0) {
+					if (candidates[i].d.indexOf(words[i_word]) < 0) {
 						delete candidates[i];
 					}
 				}
-				iter_w++;
+				i_word++;
 			}
+
 			// maybe consider ratings when valuating results
 			res.status(200).send(JSON.stringify(candidates));
 		});
@@ -226,7 +230,10 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			relValues.push(post.displayName);
 			relValues.push(post.title);
 			o[sKey] = {
-				d: relValues.join(" ")
+				d: relValues.join(" "),
+				title : post.title,
+				mapName: post.mapName,
+				strategy: post.strategy
 			}
 			return admin.database().ref('search/')
 				.update(o);
