@@ -53,9 +53,8 @@ exports.dev_migrateSpotsToSearch = functions.https.onRequest((req, res) => {
 
 exports.search = functions.https.onRequest((req, res) => {
 
-	if (req.method === 'POST') {
+	if (req.method === 'PUT') {
 		res.status(403).send('Forbidden!');
-		return;
 	}
 
 	cors(req, res, () => {
@@ -65,7 +64,6 @@ exports.search = functions.https.onRequest((req, res) => {
 		ref.once('value').then(snap => {
 			if (!snap.exists()) {
 				res.status(200).send("No data");
-				return;
 			}
 
 			let candidates = snap.val(), i_word = 0;
