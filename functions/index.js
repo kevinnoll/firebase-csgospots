@@ -53,8 +53,9 @@ exports.dev_migrateSpotsToSearch = functions.https.onRequest((req, res) => {
 
 exports.search = functions.https.onRequest((req, res) => {
 
-	if (req.method !== 'GET') {
+	if (req.method === 'POST') {
 		res.status(403).send('Forbidden!');
+		return;
 	}
 
 	cors(req, res, () => {
