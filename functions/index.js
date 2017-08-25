@@ -51,10 +51,12 @@ exports.dev_migrateSpotsToFlat = functions.https.onRequest((req, res) => {
 									menu[i_map][i_strat]++;
 								} else {
 									menu[i_map][i_strat] = 1;
+									//menu[i_map]["type"] = i_map.split("_")[0]; // takes de from de_dust2
 								}
 							} else {
 								menu[i_map] = {};
 								menu[i_map][i_strat] = 1;
+								//menu[i_map]["type"] = i_map.split("_")[0];
 							}
 
 							spot.rating = 0;
