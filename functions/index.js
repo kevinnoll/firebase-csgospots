@@ -7,6 +7,53 @@ const statistics = {};
 
 admin.initializeApp(functions.config().firebase);
 
+exports.dev_migrateSpotsToFlat = functions.https.onRequest((req, res) => {
+	
+		if (req.method !== 'GET') {
+			res.status(403).send('Forbidden!');
+		}
+	
+		cors(req, res, () => {
+			var refSpot = admin.database().ref("/spots");
+			var refFSpot = admin.database().ref("/fspots");
+			var refMenu = admin.database().ref("/menu");
+			
+			refSpot.once('value').then(snap => {
+				if (!snap.exists()) {
+					res.status(200).send("No data");
+					return;
+				}
+				let menu = {};
+				let spots = snap.val();
+				let debug_msgs = [];
+				let fspots = {};
+				for (let i_map in spots) {
+					for (let i_strat in spots[i_map]) {
+						for (let i_key in spots[i_map][i_strat]) {
+							let spot = spots[i_map][i_strat][i_key];
+							spot.path = i_map + "/" + i_strat;
+							if (i_map in menu) {
+								if (i_strat in menu[i_map]) {
+									menu[i_map][i_strat]++;
+								} else {
+									menu[i_map][i_strat] = 1;
+								}
+							} else {
+								menu[i_map] = {};
+								menu[i_map][i_strat] = 1;
+							}
+							spot.rating = 0;
+							fspots[i_key] = spot;
+							debug_msgs.push(i_key);
+						}
+					}
+				}
+				refMenu.update(menu);
+				refFSpot.update(fspots);
+				res.status(200).send("migration successful for: " + debug_msgs.join(","));
+			});
+		});	
+	})
 exports.dev_migrateSpotsToSearch = functions.https.onRequest((req, res) => {
 	
 		if (req.method !== 'GET') {
