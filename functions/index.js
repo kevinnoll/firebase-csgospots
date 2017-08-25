@@ -2,22 +2,25 @@ const functions = require('firebase-functions');
 const gcs = require("@google-cloud/storage")();
 const admin = require('firebase-admin');
 const fs = require('fs');
-const cors = require('cors')({origin: true});
+const cors = require('cors')({ origin: true });
 const statistics = {};
 
 admin.initializeApp(functions.config().firebase);
 
 exports.dev_migrateSpotsToFlat = functions.https.onRequest((req, res) => {
-	
-		if (req.method !== 'GET') {
-			res.status(403).send('Forbidden!');
-		}
-	
-		cors(req, res, () => {
-			var refSpot = admin.database().ref("/spots");
-			var refFSpot = admin.database().ref("/fspots");
-			var refMenu = admin.database().ref("/menu");
-			
+
+	if (req.method !== 'GET') {
+		res.status(403).send('Forbidden!');
+	}
+
+	cors(req, res, () => {
+		var refSpot = admin.database().ref("/spots");
+		var refFSpot = admin.database().ref("/fspots");
+		var refMenu = admin.database().ref("/menu");
+		var refLoc = admin.database().ref("/locations")
+
+		refLoc.once('value').then((snapLocs) => {
+			let locs = snapLocs.val();
 			refSpot.once('value').then(snap => {
 				if (!snap.exists()) {
 					res.status(200).send("No data");
@@ -32,6 +35,17 @@ exports.dev_migrateSpotsToFlat = functions.https.onRequest((req, res) => {
 						for (let i_key in spots[i_map][i_strat]) {
 							let spot = spots[i_map][i_strat][i_key];
 							spot.path = i_map + "/" + i_strat;
+
+							let loc = locs[i_map][i_strat][i_key];
+							if (!!loc.angle) {
+								spot.start = loc.start;
+								spot.angle = loc.angle;
+							} else {
+								spot.start = loc.start;
+								spot.end = loc.end;
+							}
+
+							// build menu structure
 							if (i_map in menu) {
 								if (i_strat in menu[i_map]) {
 									menu[i_map][i_strat]++;
@@ -42,6 +56,7 @@ exports.dev_migrateSpotsToFlat = functions.https.onRequest((req, res) => {
 								menu[i_map] = {};
 								menu[i_map][i_strat] = 1;
 							}
+
 							spot.rating = 0;
 							fspots[i_key] = spot;
 							debug_msgs.push(i_key);
@@ -52,51 +67,9 @@ exports.dev_migrateSpotsToFlat = functions.https.onRequest((req, res) => {
 				refFSpot.update(fspots);
 				res.status(200).send("migration successful for: " + debug_msgs.join(","));
 			});
-		});	
-	})
-exports.dev_migrateSpotsToSearch = functions.https.onRequest((req, res) => {
-	
-		if (req.method !== 'GET') {
-			res.status(403).send('Forbidden!');
-		}
-	
-		cors(req, res, () => {
-			var refSpot = admin.database().ref("/spots");
-			var refSearch = admin.database().ref("/search");
-			
-			refSpot.once('value').then(snap => {
-				if (!snap.exists()) {
-					res.status(200).send("No data");
-					return;
-				}
-
-				let spots = snap.val();
-				let debug_msgs = [];
-				let searchEntries = {};
-				for (let i_map in spots) {
-					for (let i_strat in spots[i_map]) {
-						for (let i_key in spots[i_map][i_strat]) {
-							let spot = spots[i_map][i_strat][i_key];
-							let relValues = [];	
-							relValues.push(spot.mapName);
-							relValues.push(spot.strategy);
-							relValues.push(spot.displayName);
-							relValues.push(spot.title);
-							searchEntries[i_key] = {
-								d: relValues.join(" "),
-								title : spot.title,
-								mapName: spot.mapName,
-								strategy: spot.strategy
-							}
-							debug_msgs.push(i_key);
-						}
-					}
-				}
-				refSearch.update(searchEntries);
-				res.status(200).send("migration successful for: " + debug_msgs.join(","));
-			});
-		});	
-	})
+		});
+	});
+})
 
 exports.search = functions.https.onRequest((req, res) => {
 
@@ -126,7 +99,7 @@ exports.search = functions.https.onRequest((req, res) => {
 			// maybe consider ratings when valuating results
 			res.status(200).send(JSON.stringify(candidates));
 		});
-	});	
+	});
 })
 
 exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
@@ -140,7 +113,7 @@ exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
 		promises.push(createUid());
 		promises.push(createUidEmail());
 
-		Promise.all(promises).then((a,b,c) => {
+		Promise.all(promises).then((a, b, c) => {
 			admin.database().ref(`/tempuser/${key}`).remove();
 		})
 
@@ -148,7 +121,7 @@ exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
 		function createDisplayName() {
 			let o = {};
 			o[user.displayName] = {
-				uid : user.uid
+				uid: user.uid
 			};
 			return admin.database().ref('displayNames/').update(o);
 		}
@@ -156,7 +129,7 @@ exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
 		function createUid() {
 			let o = {};
 			o[user.uid] = {
-				displayName : user.displayName
+				displayName: user.displayName
 			};
 			return admin.database().ref('uids/').update(o);
 		}
@@ -164,11 +137,11 @@ exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
 		function createUidEmail() {
 			let o = {};
 			o[user.uid] = {
-				email : user.email
+				email: user.email
 			};
 			return admin.database().ref('uidEmail/').update(o);
 		}
-		
+
 	})
 
 exports.processNewSpot = functions.database.ref('/temp/{pushId}')
@@ -179,10 +152,10 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 
 		readKey();
 
-		function readKey () {
+		function readKey() {
 			console.log("checking if there is already a key named " + sKey);
 			return admin.database().ref(`spotids/${sKey}`).once('value').then(snap => {
-				if(snap.val() === null) {
+				if (snap.val() === null) {
 					console.log("found an unused key, it is: " + sKey)
 					processSpot();
 					return sKey;
@@ -197,14 +170,14 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 
 		function processSpot() {
 			// validation
-			if ( !post.strategy || !post.title || !post.mapname) {
+			if (!post.strategy || !post.title || !post.mapname) {
 				console.log("no strategy/title/map provided");
 				return;
 			} else {
-				if ( post.strategy === "smoke" || post.strategy === "decoy" || post.strategy === 'brand') {
+				if (post.strategy === "smoke" || post.strategy === "decoy" || post.strategy === 'brand') {
 					processVideoSpot();
 				}
-				if ( post.strategy === "spot" || post.strategy === "awp") {
+				if (post.strategy === "spot" || post.strategy === "awp") {
 					processPictureSpot();
 				}
 			}
@@ -214,27 +187,27 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 		function createSpotId() {
 			let o = {};
 			o[sKey] = {
-				mapName : post.mapname,
-				strategy : post.strategy
+				mapName: post.mapname,
+				strategy: post.strategy
 			};
 			return admin.database().ref('spotids/').update(o);
 		}
 
 		// persist to spot data
-		function createSpot() {
+		function createSpot() {
 			let spot = {};
 			spot[sKey] = {
-				date : admin.database.ServerValue.TIMESTAMP,				
-				title : post.title,
-				mapName : post.mapname,
-				strategy : post.strategy,
-				videoId : post.videoId || null,
-				startSeconds : post.startSeconds || null,
-				endSeconds : post.endSeconds || null,
-				picture_1 : post.picture_1 || null,
-				picture_2 : post.picture_2 || null,
-				picture_3 : post.picture_3 || null,
-				displayName : post.displayName || null
+				date: admin.database.ServerValue.TIMESTAMP,
+				title: post.title,
+				mapName: post.mapname,
+				strategy: post.strategy,
+				videoId: post.videoId || null,
+				startSeconds: post.startSeconds || null,
+				endSeconds: post.endSeconds || null,
+				picture_1: post.picture_1 || null,
+				picture_2: post.picture_2 || null,
+				picture_3: post.picture_3 || null,
+				displayName: post.displayName || null
 			}
 			return admin.database().ref('spots/' + post.mapname + '/' + post.strategy + '/')
 				.update(spot);
@@ -244,40 +217,40 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 		function createLocation() {
 			let location = {};
 			location[sKey] = {
-				start : post.start,
-				strategy : post.strategy,
-				end : post.end || null,
-				angle : (post.strategy === 'spot' || post.strategy === 'awp') ? post.angle : null
+				start: post.start,
+				strategy: post.strategy,
+				end: post.end || null,
+				angle: (post.strategy === 'spot' || post.strategy === 'awp') ? post.angle : null
 			}
 			return admin.database().ref('locations/' + post.mapname + '/' + post.strategy + '/')
 				.update(location);
 		}
 
-		function createStatistics () {
-			return admin.database().ref(`statistics/${post.mapname}/${post.strategy}`).once('value').then(function(snapshot) {
-				let k = snapshot.val() || {};
+		function createStatistics() {
+			return admin.database().ref(`statistics/${post.mapname}/${post.strategy}`).once('value').then(function (snapshot) {
+				let k = snapshot.val() || {};
 				if (k.value) {
 					k.value++;
 				} else {
 					k.value = 1
 				}
-				
+
 				return admin.database().ref(`statistics/${post.mapname}/${post.strategy}`).update(k).then(snap => {
 					console.log("updated statistics")
 				})
 			});
 		}
 
-		function createSearchEntry () {
-			let o = {};	
-			let relValues = [];	
+		function createSearchEntry() {
+			let o = {};
+			let relValues = [];
 			relValues.push(post.mapName);
 			relValues.push(post.strategy);
 			relValues.push(post.displayName);
 			relValues.push(post.title);
 			o[sKey] = {
 				d: relValues.join(" "),
-				title : post.title,
+				title: post.title,
 				mapName: post.mapName,
 				strategy: post.strategy
 			}
@@ -286,26 +259,26 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 		}
 
 		// add usernode with spotids below
-		function createUserSpotMapping () {
+		function createUserSpotMapping() {
 			let o = {};
 			o[sKey] = {
-				date : admin.database.ServerValue.TIMESTAMP,
-				strategy : post.strategy,
-				mapname : post.mapname,
-				title : post.title
+				date: admin.database.ServerValue.TIMESTAMP,
+				strategy: post.strategy,
+				mapname: post.mapname,
+				title: post.title
 			};
 			return admin.database().ref(`userSpot/${post.uid}/spots/`).update(o);
 		}
 
-		function createUserStatistics () {
-			return admin.database().ref(`userSpot/${post.uid}/statistic/${post.strategy}`).once('value').then(function(snapshot) {
-				let k = snapshot.val() || {};
+		function createUserStatistics() {
+			return admin.database().ref(`userSpot/${post.uid}/statistic/${post.strategy}`).once('value').then(function (snapshot) {
+				let k = snapshot.val() || {};
 				if (k.value) {
 					k.value++;
 				} else {
 					k.value = 1
 				}
-				
+
 				console.log("k is " + JSON.stringify(k));
 				console.log(`writing a ${k.value} to userSpot/${post.uid}/statistic/${post.strategy}`);
 				return admin.database().ref(`userSpot/${post.uid}/statistic/${post.strategy}`).update(k).then(snap => {
@@ -314,11 +287,11 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			});
 		}
 
-		function processVideoSpot () {
-			if (!post.videoId  || !post.endSeconds) {
+		function processVideoSpot() {
+			if (!post.videoId || !post.endSeconds) {
 				console.log("no videoId or valid endtime provided for smoke/decoy")
 				return;
-			} 
+			}
 			console.log("data seems fine, going in!");
 
 			let aPromises = [];
@@ -331,13 +304,13 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			aPromises.push(createSearchEntry());
 
 			// cleanup tmp folder
-			Promise.all(aPromises).then((a,b,c,d,e,f,g) => {
+			Promise.all(aPromises).then((a, b, c, d, e, f, g) => {
 				console.log("all 6 (+ 1 search) pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
 			})
 		}
 
-		function processPictureSpot () {
+		function processPictureSpot() {
 			if (post.angle < 0 || post.angle > 360) {
 				console.log("wrong angle provider for awp/spot")
 				return;
@@ -364,25 +337,25 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			aPromises.push(createSpotId());
 			aPromises.push(createSpot());
 			aPromises.push(createLocation());
-			aPromises.push(createStatistics());			
+			aPromises.push(createStatistics());
 			aPromises.push(createUserSpotMapping());
 			aPromises.push(createUserStatistics());
 			aPromises.push(createSearchEntry());
 
 			// cleanup tmp folder
-			Promise.all(aPromises).then((a,b,c,d,e,f,g) => {
+			Promise.all(aPromises).then((a, b, c, d, e, f, g) => {
 				console.log("all 6 (+ 1 search) pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
 			})
-		} 
+		}
 
 		function makeid() {
 			var text = "";
 			var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-			for( var i=0; i < 5; i++ ) {
+			for (var i = 0; i < 5; i++) {
 				text += possible.charAt(Math.floor(Math.random() * possible.length));
-			}	
+			}
 			return text;
 		}
 	})
