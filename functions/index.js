@@ -79,10 +79,17 @@ exports.search = functions.https.onRequest((req, res) => {
 		res.status(403).send('Forbidden!');
 	}
 
+	let relevantAttributes = [
+		"title",
+		"mapName",
+		"strategy",
+		"displayName"
+	];
+
 	cors(req, res, () => {
 		var words = req.query["s"].split(" ");
 
-		var ref = admin.database().ref("/search");
+		var ref = admin.database().ref("/fspots");
 		ref.once('value').then(snap => {
 			if (!snap.exists()) {
 				res.status(200).send("No data");
@@ -91,7 +98,14 @@ exports.search = functions.https.onRequest((req, res) => {
 			let candidates = snap.val(), i_word = 0;
 			while (candidates !== {} && i_word < words.length) {
 				for (var i in candidates) {
-					if (candidates[i].d.indexOf(words[i_word]) < 0) {
+					let hit = false;
+					for (var r in relevantAttributes) {
+						if (candidates[i][relevantAttributes[r]].indexOf(words[i_word]) >= 0) {
+							hit = true;
+							break;
+						}
+					}
+					if (!hit) {
 						delete candidates[i];
 					}
 				}
@@ -185,20 +199,9 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			}
 		}
 
-		// insert spotid data and use it as inversed key
-		function createSpotId() {
-			let o = {};
-			o[sKey] = {
-				mapName: post.mapname,
-				strategy: post.strategy
-			};
-			return admin.database().ref('spotids/').update(o);
-		}
-
 		// persist to spot data
 		function createSpot() {
-			let spot = {};
-			spot[sKey] = {
+			let spot = {
 				date: admin.database.ServerValue.TIMESTAMP,
 				title: post.title,
 				mapName: post.mapname,
@@ -209,55 +212,30 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 				picture_1: post.picture_1 || null,
 				picture_2: post.picture_2 || null,
 				picture_3: post.picture_3 || null,
-				displayName: post.displayName || null
-			}
-			return admin.database().ref('spots/' + post.mapname + '/' + post.strategy + '/')
-				.update(spot);
-		}
-
-		// persist to location data
-		function createLocation() {
-			let location = {};
-			location[sKey] = {
-				start: post.start,
-				strategy: post.strategy,
-				end: post.end || null,
+				displayName: post.displayName || null,
+				rating : 0,
+				start : post.start,
+				end: post.end,
 				angle: (post.strategy === 'spot' || post.strategy === 'awp') ? post.angle : null
-			}
-			return admin.database().ref('locations/' + post.mapname + '/' + post.strategy + '/')
-				.update(location);
+			}			
+
+			return admin.database().ref('/fspots/' + sKey)
+				.set(spot);
 		}
 
-		function createStatistics() {
-			return admin.database().ref(`statistics/${post.mapname}/${post.strategy}`).once('value').then(function (snapshot) {
+		function createStatistics () {
+			return admin.database().ref(`menu/${post.mapname}/${post.strategy}`).once('value').then(function(snapshot) {
 				let k = snapshot.val() || {};
-				if (k.value) {
-					k.value++;
+				if (parseInt(k,10) >= 0) {
+					k++;
 				} else {
-					k.value = 1
+					k = 1
 				}
-
-				return admin.database().ref(`statistics/${post.mapname}/${post.strategy}`).update(k).then(snap => {
+				
+				return admin.database().ref(`menu/${post.mapname}/${post.strategy}`).update(k).then(snap => {
 					console.log("updated statistics")
 				})
 			});
-		}
-
-		function createSearchEntry() {
-			let o = {};
-			let relValues = [];
-			relValues.push(post.mapName);
-			relValues.push(post.strategy);
-			relValues.push(post.displayName);
-			relValues.push(post.title);
-			o[sKey] = {
-				d: relValues.join(" "),
-				title: post.title,
-				mapName: post.mapName,
-				strategy: post.strategy
-			}
-			return admin.database().ref('search/')
-				.update(o);
 		}
 
 		// add usernode with spotids below
@@ -336,13 +314,10 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			console.log("data seems fine, going in!");
 
 			let aPromises = [];
-			aPromises.push(createSpotId());
 			aPromises.push(createSpot());
-			aPromises.push(createLocation());
 			aPromises.push(createStatistics());
 			aPromises.push(createUserSpotMapping());
 			aPromises.push(createUserStatistics());
-			aPromises.push(createSearchEntry());
 
 			// cleanup tmp folder
 			Promise.all(aPromises).then((a, b, c, d, e, f, g) => {
