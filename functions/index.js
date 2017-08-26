@@ -34,6 +34,7 @@ exports.dev_migrateSpotsToFlat = functions.https.onRequest((req, res) => {
 					for (let i_strat in spots[i_map]) {
 						for (let i_key in spots[i_map][i_strat]) {
 							let spot = spots[i_map][i_strat][i_key];
+							spot.id = i_key;
 							spot.path = i_map + "/" + i_strat;
 
 							let loc = locs[i_map][i_strat][i_key];
@@ -125,37 +126,19 @@ exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
 		const key = event.data.key;
 		const promises = [];
 
-		promises.push(createDisplayName());
 		promises.push(createUid());
-		promises.push(createUidEmail());
 
-		Promise.all(promises).then((a, b, c) => {
+		Promise.all(promises).then((a) => {
 			admin.database().ref(`/tempuser/${key}`).remove();
-		})
-
-		// insert user to displayNames 
-		function createDisplayName() {
-			let o = {};
-			o[user.displayName] = {
-				uid: user.uid
-			};
-			return admin.database().ref('displayNames/').update(o);
-		}
+		});		
 
 		function createUid() {
 			let o = {};
 			o[user.uid] = {
+				email: user.email,
 				displayName: user.displayName
 			};
 			return admin.database().ref('uids/').update(o);
-		}
-
-		function createUidEmail() {
-			let o = {};
-			o[user.uid] = {
-				email: user.email
-			};
-			return admin.database().ref('uidEmail/').update(o);
 		}
 
 	})
@@ -170,7 +153,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 
 		function readKey() {
 			console.log("checking if there is already a key named " + sKey);
-			return admin.database().ref(`spotids/${sKey}`).once('value').then(snap => {
+			return admin.database().ref(`fspots/${sKey}`).once('value').then(snap => {
 				if (snap.val() === null) {
 					console.log("found an unused key, it is: " + sKey)
 					processSpot();
@@ -202,6 +185,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 		// persist to spot data
 		function createSpot() {
 			let spot = {
+				id: sKey,
 				date: admin.database.ServerValue.TIMESTAMP,
 				title: post.title,
 				mapName: post.mapname,
@@ -213,6 +197,8 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 				picture_2: post.picture_2 || null,
 				picture_3: post.picture_3 || null,
 				displayName: post.displayName || null,
+				path: "unpublished",
+				published: false,
 				rating : 0,
 				start : post.start,
 				end: post.end,
@@ -221,51 +207,7 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 
 			return admin.database().ref('/fspots/' + sKey)
 				.set(spot);
-		}
-
-		function createStatistics () {
-			return admin.database().ref(`menu/${post.mapname}/${post.strategy}`).once('value').then(function(snapshot) {
-				let k = snapshot.val() || {};
-				if (parseInt(k,10) >= 0) {
-					k++;
-				} else {
-					k = 1
-				}
-				
-				return admin.database().ref(`menu/${post.mapname}/${post.strategy}`).update(k).then(snap => {
-					console.log("updated statistics")
-				})
-			});
-		}
-
-		// add usernode with spotids below
-		function createUserSpotMapping() {
-			let o = {};
-			o[sKey] = {
-				date: admin.database.ServerValue.TIMESTAMP,
-				strategy: post.strategy,
-				mapname: post.mapname,
-				title: post.title
-			};
-			return admin.database().ref(`userSpot/${post.uid}/spots/`).update(o);
-		}
-
-		function createUserStatistics() {
-			return admin.database().ref(`userSpot/${post.uid}/statistic/${post.strategy}`).once('value').then(function (snapshot) {
-				let k = snapshot.val() || {};
-				if (k.value) {
-					k.value++;
-				} else {
-					k.value = 1
-				}
-
-				console.log("k is " + JSON.stringify(k));
-				console.log(`writing a ${k.value} to userSpot/${post.uid}/statistic/${post.strategy}`);
-				return admin.database().ref(`userSpot/${post.uid}/statistic/${post.strategy}`).update(k).then(snap => {
-					console.log("updated userstatstics")
-				})
-			});
-		}
+		}		
 
 		function processVideoSpot() {
 			if (!post.videoId || !post.endSeconds) {
@@ -275,17 +217,11 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 			console.log("data seems fine, going in!");
 
 			let aPromises = [];
-			aPromises.push(createSpotId());
 			aPromises.push(createSpot());
-			aPromises.push(createLocation());
-			aPromises.push(createStatistics());
-			aPromises.push(createUserSpotMapping());
-			aPromises.push(createUserStatistics());
-			aPromises.push(createSearchEntry());
 
 			// cleanup tmp folder
-			Promise.all(aPromises).then((a, b, c, d, e, f, g) => {
-				console.log("all 6 (+ 1 search) pushed successfully");
+			Promise.all(aPromises).then((a) => {
+				console.log(" pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
 			})
 		}
@@ -315,13 +251,10 @@ exports.processNewSpot = functions.database.ref('/temp/{pushId}')
 
 			let aPromises = [];
 			aPromises.push(createSpot());
-			aPromises.push(createStatistics());
-			aPromises.push(createUserSpotMapping());
-			aPromises.push(createUserStatistics());
 
 			// cleanup tmp folder
-			Promise.all(aPromises).then((a, b, c, d, e, f, g) => {
-				console.log("all 6 (+ 1 search) pushed successfully");
+			Promise.all(aPromises).then((a) => {
+				console.log("pushed successfully");
 				admin.database().ref(`temp/${key}`).remove();
 			})
 		}
