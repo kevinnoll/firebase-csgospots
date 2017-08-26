@@ -97,7 +97,7 @@ exports.search = functions.https.onRequest((req, res) => {
 			}
 
 			let candidates = snap.val(), i_word = 0;
-			while (candidates !== {} && i_word < words.length) {
+			while (Object.keys(candidates).length >= 0 && i_word < words.length) {
 				for (var i in candidates) {
 					let hit = false;
 					for (var r in relevantAttributes) {
