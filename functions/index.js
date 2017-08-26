@@ -91,7 +91,7 @@ exports.search = functions.https.onRequest((req, res) => {
 		var words = req.query["s"].split(" ");
 
 		var ref = admin.database().ref("/fspots");
-		ref.once('value').then(snap => {
+		ref.orderByChild("published").equalTo(true).once('value').then(snap => {
 			if (!snap.exists()) {
 				res.status(200).send("No data");
 			}
