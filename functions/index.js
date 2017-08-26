@@ -119,6 +119,49 @@ exports.search = functions.https.onRequest((req, res) => {
 	});
 })
 
+exports.publish = functions.https.onRequest((req, res) => {
+
+	// TODO: Authentication check.
+
+	if (req.method === 'PUT') {
+		res.status(403).send('Forbidden!');
+	}
+
+	let debug_msgs = [];
+
+	cors(req, res, () => {
+		let spotId = req.query["id"];
+
+		let spotRef = admin.database().ref("/fspots/" + spotId);
+		spotRef.once('value').then(snap => {
+			if (!snap.exists()) {
+				res.status(200).send("No spot found");
+			}
+
+			let spot = snap.val();
+			spot.path = spot.mapName + "/" + spot.strategy;
+			spot.published = true;
+			spotRef.update(spot).then(() => {
+				debug_msgs.push("updated spot");
+			});
+
+			let menuRef = admin.database().ref("/menu/" + spot.mapName);
+			menuRef.once('value').then(snap => {
+				let m = snap.val();
+				if (spot.strategy in m) {
+					m[spot.strategy]++;
+				} else {
+					m[spot.strategy] = 1;
+				}
+				menuRef.update(m).then(() => {
+					debug_msgs.push("updated menu");
+					res.status(200).send("Publish done with messages: "+ debug_msgs.join(","));
+				});
+			});
+		});		
+	});
+})
+
 exports.processNewUser = functions.database.ref('/tempuser/{pushId}')
 	.onCreate(event => {
 		console.log('received new user request');
